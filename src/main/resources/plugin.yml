@@ -1,0 +1,22 @@
+name: BetaKey
+version: '${project.version}'
+main: de.minnivini.betakey.BetaKey
+api-version: '1.19'
+commands:
+  betakey:
+    description: Betakey Standart command
+  license:
+    description: Shows current license
+permissions:
+  betakey.generate:
+    description: Allows Player to generate new Betakeys
+    default: op
+  betakey.register:
+    description: Allows Players to register their keys
+    default: true
+  betakey.licence:
+    description: Allows Players to see their Key
+    default: true
+  betakey.spawn:
+    description: Allows Players to teleport to the Betakey spawn
+    default: op

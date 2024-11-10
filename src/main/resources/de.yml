@@ -1,0 +1,16 @@
+#Messages
+"BetaDis": "§4Die Beta ist disabled! Bitte aktiviere sie in der config --> (config.yml/beta) um die beta zu aktivieren setzte as value auf true"
+"NoPerm": "Du hast keine Berechtigung diesen befehl auszugeben! "
+"LicUntil": "§aDeine Beta-Lizenz ist bis zum {until} verfügbar: + {key}"
+"enterName": "Bitte nenne einen Spielernamen"
+"enterKey": "Bitte nenne einen Beta-Key"
+
+#ErrorMessages
+"noLicence": "§cEs wurde keine verfügbare Beta-Lizenz gefunden!"
+"noLicence2": "§4Deine Beta-Lizenz ist bereits abgelaufen, bitte nutzte einen neuen Key! (/betakey register {key})"
+"KeyExpired": "§4Dein Beta key ist abgelaufen! Bitte registriere dich mit einem neuen! (/betakey register {key})"
+"spawnpoint": "§4Der Admin hat noch keinen spawnpoint gesetzt!"
+
+#SuccessMessages
+"SpawnSet": "§aDer Spawnpunkt wurde erfolgreich gesetzt!"
+"cleared": "§aDie Config wurde auf alte keys überprüft. Es wurden {count} keys entfernt!"
