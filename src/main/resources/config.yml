@@ -20,3 +20,7 @@ keys:
   open:
   player:
   time:
+
+# You need to install LuckPerms for this feature to work
+luckperms:
+  player_group: default   # Edit this to the group you want the player to join after a registration

@@ -1,6 +1,7 @@
 package de.minnivini.betakey.listener;
 
 import de.minnivini.betakey.BetaKey;
+import de.minnivini.betakey.Util.Luckperms;
 import de.minnivini.betakey.Util.lang;
 import org.bukkit.BanEntry;
 import org.bukkit.Bukkit;
@@ -63,6 +64,11 @@ public class onPlayerJoin implements Listener {
         if (config.contains("keys.player." + uuid)) {
             config.set("keys.player." + uuid, null);
             p.sendMessage(lang.getMessage("KeyExpired"));
+            Luckperms luckperms = new Luckperms();
+            if (luckperms.check_installed()) {
+                luckperms.removePlayerFromGroup(p.getUniqueId(), config.getString("luckperms.player_group"));
+            }
+
         }
         if (config.contains("keys.time." + key)) {
             config.set("keys.time." + key, null);

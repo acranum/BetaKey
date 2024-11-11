@@ -2,6 +2,7 @@ name: BetaKey
 version: '${project.version}'
 main: de.minnivini.betakey.BetaKey
 api-version: '1.19'
+soft-depend: [LuckPerms]
 commands:
   betakey:
     description: Betakey Standart command

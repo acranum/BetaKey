@@ -1,6 +1,7 @@
-package de.minnivini.betakey.Util;
+package de.minnivini.betakey.process;
 
 import de.minnivini.betakey.BetaKey;
+import de.minnivini.betakey.Util.Luckperms;
 import de.minnivini.betakey.Util.lang;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -40,7 +41,11 @@ public class licence implements CommandExecutor {
                         message = message.replace("{until}", bis.toString());
                         message = message.replace("{key}", key);
                         p.sendMessage(message);
-                    } else p.sendMessage(lang.getMessage("noLicence2"));
+                    } else {
+                        p.sendMessage(lang.getMessage("noLicence2"));
+                        Luckperms luckperms = new Luckperms();
+                        luckperms.removePlayerFromGroup(p.getUniqueId(), config.getString("luckperms.player_group"));
+                    }
                 } else p.sendMessage(lang.getMessage("noLicence"));
             } else {
                 p.sendMessage(lang.getMessage("noLicence"));

@@ -1,6 +1,8 @@
-package de.minnivini.betakey.Util;
+package de.minnivini.betakey.process;
 
 import de.minnivini.betakey.BetaKey;
+import de.minnivini.betakey.Util.Luckperms;
+import de.minnivini.betakey.Util.lang;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -16,7 +18,7 @@ import java.util.UUID;
 
 public class register {
     FileConfiguration config = BetaKey.getPlugin(BetaKey.class).getConfig();
-    lang lang = new lang();
+    de.minnivini.betakey.Util.lang lang = new lang();
     public void register(String key, CommandSender commandSender) {
         if (commandSender.hasPermission("betakey.register")) {
             String check = config.getString("keys.open." + key);
@@ -48,7 +50,8 @@ public class register {
                         config.set("keys.player." + uuid, key);
                         BetaKey.getPlugin(BetaKey.class).saveConfig();
                         sendToLobby(p);
-
+                        Luckperms luckperms = new Luckperms();
+                        luckperms.addPlayerToGroup(p.getUniqueId(), config.getString("luckperms.player_group"));
                     } else {
                         p.sendMessage("§4>> Die Betaphase ist bereits beendet!");
                     }

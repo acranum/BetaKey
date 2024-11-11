@@ -1,11 +1,15 @@
 package de.minnivini.betakey;
 
 import de.minnivini.betakey.Commands.BetakeyCMD;
-import de.minnivini.betakey.Util.licence;
+import de.minnivini.betakey.Util.Luckperms;
+import de.minnivini.betakey.process.licence;
 import de.minnivini.betakey.Util.lang;
 import de.minnivini.betakey.listener.onPlayerJoin;
+import net.luckperms.api.LuckPerms;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.time.LocalDate;
@@ -13,16 +17,16 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 public final class BetaKey extends JavaPlugin {
     lang lang = new lang();
-
     FileConfiguration config = getConfig();
+    public LuckPerms api;
 
     @Override
     public void onEnable() {
+        Luckperms luckperms = new Luckperms();
         saveDefaultConfig();
         lang.createLanguageFolder();
 
@@ -34,13 +38,20 @@ public final class BetaKey extends JavaPlugin {
 
 
         getServer().getPluginManager().registerEvents(new onPlayerJoin(), this);
+
+        if (luckperms.check_installed()) {
+            RegisteredServiceProvider<LuckPerms> provider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
+            if (provider != null) {
+                api = provider.getProvider();
+            }
+            luckperms.CreateGroup("BetaKey");
+        }
     }
 
     @Override
     public void onDisable() {
         saveDefaultConfig();
     }
-
 
     public boolean betaCheack() {
         Boolean beta = config.getBoolean("beta");

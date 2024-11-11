@@ -1,4 +1,4 @@
-package de.minnivini.betakey.Util;
+package de.minnivini.betakey.process;
 
 import de.minnivini.betakey.BetaKey;
 import org.bukkit.Bukkit;

@@ -1,4 +1,4 @@
-package de.minnivini.betakey.Util;
+package de.minnivini.betakey.process;
 
 import de.minnivini.betakey.BetaKey;
 import de.minnivini.betakey.Util.lang;
@@ -43,7 +43,7 @@ public class spawn {
         } else p.sendMessage(lang.getMessage("NoPerm"));
     }
     public void spawn(CommandSender sender) {
-        if (sender instanceof Player || sender.hasPermission("betakey.spawn")) {
+        if (sender instanceof Player && sender.hasPermission("betakey.spawn")) {
             Player p = (Player) sender;
             Location spawn = null;
 
