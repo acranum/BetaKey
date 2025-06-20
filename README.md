@@ -20,6 +20,7 @@ BetaKey is a simple Minecraft plugin to control beta access to your server. You 
 - /betakey setSpawn/setLobby --> set Spawn/Lobby
 - /betakey license bzw. /license --> show your current license
 - /betakey reload --> reload the config
+- /betakey spawn <player> --> teleports player to the Spawn
 
 ## Permissions
 ```bash
@@ -27,6 +28,7 @@ betakey.generate
 betakey.register
 betakey.licence
 betakey.spawn
+betakey.setspawn
 ```
 
 ## Config.yml
