@@ -6,11 +6,9 @@ import de.minnivini.betakey.Util.lang;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -18,12 +16,10 @@ import java.util.UUID;
 
 public class register {
     FileConfiguration config = BetaKey.getPlugin(BetaKey.class).getConfig();
-    de.minnivini.betakey.Util.lang lang = new lang();
-    public void register(String key, CommandSender commandSender) {
-        if (commandSender.hasPermission("betakey.register")) {
+    public void register(String key, Player p, boolean item) {
+        if (p.hasPermission("betakey.register")) {
             String check = config.getString("keys.open." + key);
             if (check != null) {
-                Player p = (Player) commandSender;
                 UUID uuid = p.getUniqueId();
                 String date = getDate(key);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -36,33 +32,25 @@ public class register {
 
                     if (currentKeydate != null && currentKeydate.isAfter(bis) || currentKeydate.isEqual(bis)) {
                         if (!p.isOp()) {
-                            p.sendMessage("§4Du hast bereits eine längere Betakey license! ");
+                            p.sendMessage(lang.getMessage("alreadyLicenced"));
                             return;
                         }
                     }
                 }
-
-
                 if (bis.isAfter(now)) {
                     if (config.getBoolean("beta")) {
-                        p.sendMessage("§a>> Der Beta Key ist richtig. Du wurdest erfolgreich registriert (gültig bis zum: " + date + ")");
+                        p.sendMessage(lang.getMessage("registered").replace("{date}", date));
                         config.set("keys.open." + key, null);
                         config.set("keys.player." + uuid, key);
                         BetaKey.getPlugin(BetaKey.class).saveConfig();
                         sendToLobby(p);
                         Luckperms luckperms = new Luckperms();
-                        luckperms.addPlayerToGroup(p.getUniqueId(), config.getString("luckperms.player_group"));
-                    } else {
-                        p.sendMessage("§4>> Die Betaphase ist bereits beendet!");
-                    }
+                        luckperms.addPlayerToGroup(p, config.getString("luckperms.player_group"));
+                        if (item) p.getInventory().removeItem(p.getInventory().getItemInMainHand());
 
-                } else {
-                    p.sendMessage("§4>> Der Beta Key ist abgelaufen oder nicht mehr gültig");
-                }
-
-            } else {
-                commandSender.sendMessage("§4Der Beta Key ist falsch");
-            }
+                    } else p.sendMessage(lang.getMessage("betaAlreadyfinished"));
+                } else p.sendMessage(lang.getMessage("keyNotGood"));
+            } else p.sendMessage(lang.getMessage("wrongKey"));
         }
     }
     public String getDate(String key) {
@@ -90,7 +78,7 @@ public class register {
                 p.teleport(spawn1);
             }, 20);
         } catch (Exception ey) {
-            if (!p.isOp()) {
+            if (!p.isOp() || !p.hasPermission("betakey.spawn")) {
                 p.kickPlayer(lang.getMessage("spawnpoint"));
             }
         }

@@ -6,6 +6,7 @@ import net.luckperms.api.model.group.Group;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.types.InheritanceNode;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.UUID;
@@ -16,14 +17,11 @@ public class Luckperms {
     public void CreateGroup(String groupName) {
         if (check_installed()) {
             Group group = getGroup(groupName);
-            //if (!checkGroup(groupName)) {
-            // Gruppe existiert nicht, also eine neue erstellen
+            if (!checkGroup(groupName)) {
             group = luckPerms.getGroupManager().createAndLoadGroup(groupName).join();
             //group.data().add(Node.builder("example.permission").build());
             saveGroup(group);
-            //} else {
-            //    System.out.println("Gruppe '" + groupName + "' existiert bereits.");
-            //}
+            }
         }
     }
 
@@ -45,25 +43,24 @@ public class Luckperms {
         return null;
     }
 
-    public void addPlayerToGroup(UUID uuid, String groupName) {
+    public void addPlayerToGroup(Player p, String groupName) {
+        UUID uuid = p.getUniqueId();
         if (check_installed()) {
             // Gruppe abrufen
             Group group = getGroup(groupName);
             if (group == null) {
-                System.out.println("Gruppe '" + groupName + "' existiert nicht.");
+                p.sendMessage(lang.getMessage("NoGroup").replace("name", groupName));
                 return;
             }
-
             // Spieler abrufen (lädt den Spieler, falls er nicht im Cache ist)
             User user = luckPerms.getUserManager().loadUser(uuid).join();
             if (user == null) {
-                System.out.println("Spieler mit der UUID '" + uuid + "' konnte nicht gefunden werden.");
+                p.sendMessage(lang.getMessage("PlayerNotFound").replace("{name}", p.getName()));
+                System.out.println(lang.getMessage("PlayerNotFound").replace("{name}", p.getName()));
                 return;
             }
-
             // InheritanceNode für die Gruppe erstellen
             InheritanceNode groupNode = InheritanceNode.builder(groupName).build();
-
             // Prüfen, ob der Spieler bereits in der Gruppe ist
             user.data().add(groupNode);
             luckPerms.getUserManager().saveUser(user);
@@ -78,7 +75,6 @@ public class Luckperms {
             InheritanceNode groupNode = InheritanceNode.builder(groupName).build();
 
             user.data().remove(groupNode);
-            System.out.println("Spieler wurde aus der Gruppe '" + groupName + "' entfernt.");
 
             // Änderungen speichern
             luckPerms.getUserManager().saveUser(user);
@@ -86,7 +82,6 @@ public class Luckperms {
     }
     public boolean check_installed() {
         Plugin plugin = Bukkit.getServer().getPluginManager().getPlugin("LuckPerms");
-
         return plugin != null && plugin.isEnabled();
     }
 }

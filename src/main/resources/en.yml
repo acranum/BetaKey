@@ -1,16 +1,28 @@
+version: 1.0
 # Messages
 "BetaDis": "§4The beta is disabled! Please enable it in the config --> (config.yml/beta) to activate the beta, set the value to true."
 "NoPerm": "You do not have permission to execute this command!"
 "LicUntil": "§aYour beta license is available until {until}: {key}"
+"LicUntilKey": "§aDeine Beta-Lizenz ist bis zum {until} verfügbar."
 "enterName": "Please enter a player name."
 "enterKey": "Please enter a beta key."
+"alreadyLicenced": "You already have a longer license"
+"betaAlreadyfinished": ">> The beta phase is already over!"
+"removeLicense": ">> The license for {name} has been removed and deleted"
+"removedLicenseByAdmin": "§aYour license has been removed by an administrator."
 
 # Error Messages
 "noLicence": "§cNo available beta license found!"
 "noLicence2": "§4Your beta license has already expired, please use a new key! (/betakey register {key})"
 "KeyExpired": "§4Your beta key has expired! Please register with a new one! (/betakey register {key})"
 "spawnpoint": "§4The Admin dosn't set the spawn point yet!"
+"NoGroup": "§4group {name} doesn't exist"
+"PlayerNotFound": "§4The player {name} was not found."
+"keyNotGood": "§4>> The beta key has expired or is no longer valid."
+"wrongKey": "§4>> The key is incorrect"
+"notOnline": "§4{name} isn't online"
 
 # Success Messages
-"SpawnSet": "§aThe spawn point has been successfully set!"
+"spawnSet": "§aThe spawn point has been successfully set!"
 "cleared": "§aThe config has been checked for old keys. {count} keys have been removed!"
+"registered": "§a>> The beta key is correct. You have been successfully registered (valid until: {date})"

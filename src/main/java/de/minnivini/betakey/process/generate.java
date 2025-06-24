@@ -1,23 +1,22 @@
 package de.minnivini.betakey.process;
 
 import de.minnivini.betakey.BetaKey;
+import de.minnivini.betakey.Util.ItemBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Painting;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
-import java.security.Key;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class generate {
 
     public void generate(int num, CommandSender sender, int bis){
+        Player p = (Player) sender;
         if (sender.hasPermission("betakey.generate")) {
             for (int i = 0; i < num; i++) {
                 String key = generateKey();
@@ -25,8 +24,11 @@ public class generate {
                 addKeytoConfig(key);
                 ConfigBis(bis, key);
                 if (sender instanceof Player) {
-                    sender.sendMessage(key);
-                }
+                    p.spigot().sendMessage(BetaKey.copyMSG(key));
+                    ItemStack keyItem = new ItemBuilder(Material.NAME_TAG).setDisplayname(key).setLore("This is a betakey license. Redeem it by right clicking").setGlow().setUnbreakable(true).build();
+                    System.out.println(keyItem.getItemMeta().getItemFlags());
+                    p.getInventory().addItem(keyItem);
+                } else sender.sendMessage(key);
             }
         }
     }

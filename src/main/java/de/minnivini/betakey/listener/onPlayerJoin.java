@@ -3,7 +3,6 @@ package de.minnivini.betakey.listener;
 import de.minnivini.betakey.BetaKey;
 import de.minnivini.betakey.Util.Luckperms;
 import de.minnivini.betakey.Util.lang;
-import org.bukkit.BanEntry;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -19,7 +18,6 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class onPlayerJoin implements Listener {
-    lang lang = new lang();
     FileConfiguration config = BetaKey.getPlugin(BetaKey.class).getConfig();
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
@@ -45,12 +43,17 @@ public class onPlayerJoin implements Listener {
                 LocalDate now = LocalDate.now();
                 if (bis.isAfter(now)) {
                     //nothing (normal Playing)
+                    Bukkit.getScheduler().runTaskLater(BetaKey.getPlugin(BetaKey.class), () -> {
+                        p.sendMessage(lang.getMessage("LicUntil").replace("{until}", bis.toString()).replace("{key}", key));
+                    }, 20);
+
                 } else {
-                    removePlayerEtTime(p, key);
+                    removePlayerAndTime(p, key);
                     sendToSpawn(p);
                 }
             } else {
                 sendToSpawn(p);
+                p.sendTitle(lang.getMessage("noLicence"), "");
                 Bukkit.getScheduler().runTaskLater(BetaKey.getPlugin(BetaKey.class), () -> {
                     p.sendMessage(lang.getMessage("noLicence"));
                 }, 20);
@@ -58,7 +61,7 @@ public class onPlayerJoin implements Listener {
             }
         }
     }
-    public void removePlayerEtTime(Player p, String key) {
+    public void removePlayerAndTime(Player p, String key) {
         UUID uuid = p.getUniqueId();
         FileConfiguration config = BetaKey.getPlugin(BetaKey.class).getConfig();
         if (config.contains("keys.player." + uuid)) {

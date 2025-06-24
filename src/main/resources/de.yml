@@ -1,16 +1,28 @@
+version: 1.0
 #Messages
 "BetaDis": "§4Die Beta ist disabled! Bitte aktiviere sie in der config --> (config.yml/beta) um die beta zu aktivieren setzte as value auf true"
 "NoPerm": "Du hast keine Berechtigung diesen befehl auszugeben! "
-"LicUntil": "§aDeine Beta-Lizenz ist bis zum {until} verfügbar: + {key}"
+"LicUntilKey": "§aDeine Beta-Lizenz ist bis zum {until} verfügbar: {key}"
+"LicUntil": "§aDeine Beta-Lizenz ist bis zum {until} verfügbar."
 "enterName": "Bitte nenne einen Spielernamen"
 "enterKey": "Bitte nenne einen Beta-Key"
+"alreadyLicenced": "Du hast bereits eine längere Lizenz"
+"betaAlreadyfinished": ">> Die Betaphase ist bereits beendet!"
+"removeLicense": ">> Die Lizenz von {name} wurde entfernt und gelöscht"
+"removedLicenseByAdmin": "§aDeine Lizenz wurde von einem Administrator entfernt"
 
 #ErrorMessages
 "noLicence": "§cEs wurde keine verfügbare Beta-Lizenz gefunden!"
 "noLicence2": "§4Deine Beta-Lizenz ist bereits abgelaufen, bitte nutzte einen neuen Key! (/betakey register {key})"
 "KeyExpired": "§4Dein Beta key ist abgelaufen! Bitte registriere dich mit einem neuen! (/betakey register {key})"
 "spawnpoint": "§4Der Admin hat noch keinen spawnpoint gesetzt!"
+"NoGroup": "§4Gruppe {name} existiert nicht"
+"PlayerNotFound": "§4Spieler {name} konnte nicht gefunden werden"
+"keyNotGood": "§4>> Der Beta Key ist abgelaufen oder nicht mehr gültig"
+"wrongKey": "§4>> Der Key ist falsch"
+"notOnline": "§4{name} ist nicht online"
 
 #SuccessMessages
-"SpawnSet": "§aDer Spawnpunkt wurde erfolgreich gesetzt!"
+"spawnSet": "§aDer Spawnpunkt wurde erfolgreich gesetzt!"
 "cleared": "§aDie Config wurde auf alte keys überprüft. Es wurden {count} keys entfernt!"
+"registered": "§a>> Der Beta Key ist richtig. Du wurdest erfolgreich registriert (gültig bis zum: {date})"

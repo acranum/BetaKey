@@ -1,7 +1,7 @@
 name: BetaKey
 version: '${project.version}'
 main: de.minnivini.betakey.BetaKey
-api-version: '1.19'
+api-version: '1.21'
 soft-depend: [LuckPerms]
 commands:
   betakey:
@@ -18,6 +18,12 @@ permissions:
   betakey.licence:
     description: Allows Players to see their Key
     default: true
+  betakey.removelicence:
+    description: Allows Players to see their Key
+    default: true
   betakey.spawn:
-    description: Allows Players to teleport to the Betakey spawn
+    description: Allows Admins to teleport players to the Betakey spawn
+    default: op
+  betakey.setspawn:
+    description: Allows Admins to set the spawn and lobby points
     default: op
